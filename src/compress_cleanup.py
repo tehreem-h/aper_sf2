@@ -15,9 +15,9 @@ def compress_clean(DATA, FIELD, CUBE):
     field_spline = glob(DATA+"/"+FIELD+"/HI_B0*_cube"+CUBE+"_spline.fits")
     field_spline_clpb = glob(DATA+"/"+FIELD+"/HI_B0*_cube"+CUBE+"_spline_clean_pb.fits")
     field_spline_clsmpb = glob(DATA+"/"+FIELD+"/HI_B0*_cube"+CUBE+"_spline_clean_smooth_pb.fits")
-    mos_filt = glob(DATA+"/mos_"+FIELD+"/*filtered.fits")
-    mos_filtspline = glob(DATA+"/mos_"+FIELD+"/*filtered_spline.fits")
-    mos_bin = glob(DATA+"/mos_"+FIELD+"/*bin*")
+    mos_filt = glob(DATA+"/mos_"+FIELD+"/*cube"+CUBE+"*filtered.fits")
+    mos_filtspline = glob(DATA+"/mos_"+FIELD+"/*cube"+CUBE+"*filtered_spline.fits")
+    mos_bin = glob(DATA+"/mos_"+FIELD+"/*cube"+CUBE+"*bin*")
 
     for group in [field_pb, field_spline, field_spline_clpb,field_spline_clsmpb, mos_filt, mos_filtspline, mos_bin]:
         for a in group:
@@ -26,9 +26,9 @@ def compress_clean(DATA, FIELD, CUBE):
                 print('rm -r {}'.format(a))
 
 
-    weights_cubes = glob(DATA+'/mos_'+FIELD+'/*weights.fits')
-    noise_cubes = glob(DATA+'/mos_'+FIELD+'/*noise.fits')
-    mask_cubes = glob(DATA+'/mos_'+FIELD+'/*mask.fits')
+    weights_cubes = glob(DATA+'/mos_'+FIELD+'/*cube'+CUBE+'*weights.fits')
+    noise_cubes = glob(DATA+'/mos_'+FIELD+'/*cube'+CUBE+'*noise.fits')
+    mask_cubes = glob(DATA+'/mos_'+FIELD+'/*cube'+CUBE+'*mask.fits')
 
     for w in weights_cubes:
         if not os.path.isfile(w + '.fz') & os.path.isfile(w):
