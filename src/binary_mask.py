@@ -33,7 +33,7 @@ def run(i):
         return 'OK'
 
     except Exception:
-        print("[ERROR] Something went wrong with the Spline fitting [" + str(i) + "]")
+        print("[ERROR] Something went wrong with the binary masking [" + str(i) + "]")
         return np.nan
 
 ###################################################################
@@ -171,7 +171,7 @@ for c in cubes:
     for p in ps: p.join()
 
     # Updating the Splinecube file with the new data
-    print(" - Updating the Splinecube file")
+    print(" - Updating the Mask file")
     # bin_hdu = fits.PrimaryHDU(data=bin_mask2d, header=mask2d_hdu[0].header)
     # bin_hdu.writeto(bin_mask2d_file, overwrite=True)
     mask2d_hdu.data = mask2d

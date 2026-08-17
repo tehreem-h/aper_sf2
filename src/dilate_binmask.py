@@ -166,7 +166,7 @@ for c in cubes:
     for p in ps: p.join()
 
     # Updating the Splinecube file with the new data
-    print(" - Updating the Splinecube file")
+    print(" - Updating the Mask file")
 
     dilmask_hdu.data = dilmask
 
