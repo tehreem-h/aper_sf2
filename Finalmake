@@ -20,6 +20,7 @@ rule all:
 
 rule make_bin_mask_fullres:
     input:
+        DATA+"/mos_"+FIELD+"/"+FIELD+"_HIcube"+CUBE+"_image_sofiaFS_cat_edit.txt",
         DATA+"/mos_"+FIELD+"/"+FIELD+"_HIcube"+CUBE+"_image_sofiaFS_mask.fits"
     output:
         DATA+"/mos_"+FIELD+"/"+FIELD+"_HIcube"+CUBE+"_image_sofiaFS_mask_bin.fits"
