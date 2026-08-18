@@ -13,9 +13,9 @@ data[:,0,0] = 1.0
 
 hdu = fits.PrimaryHDU(data=data, header=hdr)
 
-DATA = '/'+'/'.join(incube.split('/')[1:4])
-FIELD = incube.split('/')[4]
-CUBE = incube.split('/')[5].split('_')[-2][-1]
+DATA = '/'.join(incube.split('/')[:-2])
+FIELD = incube.split('/')[-2]
+CUBE = incube.split('/')[-1].split('_')[-2][-1]
 bm = incube.split('/')[-1].split('_')[1][2:]
 
 out_name = DATA+"/mos_"+FIELD+"/"+FIELD+"_HIcube"+CUBE+"_image_sofiaFS_mask_bin_dil"+bm+"_regrid.fits"
