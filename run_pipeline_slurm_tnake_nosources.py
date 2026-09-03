@@ -21,8 +21,8 @@ def write_slurm(field_name):
         f.write("#SBATCH --job-name=aper_"+field_name+"          # Assign an short name to your job\n")
         f.write("#SBATCH --nodes=1                     # Number of nodes you require\n")
         f.write("#SBATCH --ntasks=1             # Total # of tasks across all nodes\n")
-        f.write("#SBATCH --cpus-per-task=32             # Cores per task (>1 if multithread tasks)\n")
-        f.write("#SBATCH --time=12:00:00               # Total run time limit (HH:MM:SS)\n")
+        f.write("#SBATCH --cpus-per-task=10             # Cores per task (>1 if multithread tasks)\n")
+        f.write("#SBATCH --time=24:00:00               # Total run time limit (HH:MM:SS)\n")
         f.write("#SBATCH --output=/project/apdw/Software/aper_sf2/slurm_out/aper_"+field_name+"_"+date_string+".out    # STDOUT output file\n")
         f.write("#SBATCH --error=/project/apdw/Software/aper_sf2/slurm_out/aper_"+field_name+"_"+date_string+".err     # STDERR output file (optional)\n")
         f.write("#SBATCH --export=ALL                  # Export you current env to the job env\n")
@@ -33,7 +33,7 @@ def write_slurm(field_name):
         f.write("conda activate snakemake312\n")
         f.write("cd /project/apdw/Software/aper_sf2\n\n")
         
-        f.write('snakemake --cores 29 -s Tnakefile_slurm_nosources --use-singularity --singularity-args "--bind /project/apdw/" --resources mem_mb=225000 --config FIELD='+field_name)
+        f.write('snakemake --cores 8 -s Tnakefile_slurm_nosources --use-singularity --singularity-args "--bind /project/apdw/" --resources mem_mb=225000 --config FIELD='+field_name)
 
 def run_slurm(field_name):
     subprocess.run(["sbatch", "/project/apdw/Software/aper_sf2/slurm_out/slurm_"+field_name+"_"+date_string+".sh"])

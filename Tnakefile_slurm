@@ -50,7 +50,7 @@ rule regrid_masks:
 #        #5  # Normal
 #        3  # MDS fields (should really be doing this with memory allocation not threads)
     resources:
-        mem_mb = 55000
+        mem_mb = 54000
     shell:
         "python3 "+SOFTWARE+"/aper_sf2/src/regridmask.py {input[0]} {input[1]}"
 
@@ -128,7 +128,7 @@ rule run_sofia_clean:
         DATA+"/mos_"+FIELD+"/"+FIELD+"_HIcube"+CUBE+"_clean_image_cat.xml",
         DATA+"/mos_"+FIELD+"/"+FIELD+"_HIcube"+CUBE+"_clean_image_mask-2d.fits"
     threads:
-        10  # Same as what's coded into the template file.  No advantage of going higher because only applying existing mask.
+        8  # Same as what's coded into the template file.  No advantage of going higher because only applying existing mask.
     shell:
         "sofia "+SOFTWARE+"/aper_sf2/sofia_final_template.par input.data={input[0]} input.mask={input[1]}"
 
@@ -267,7 +267,7 @@ rule run_sofia_smooth:
         DATA+"/mos_"+FIELD+"/"+FIELD+"_HIcube"+CUBE+"_clean_smooth_image_mask-2d.fits",
         DATA+"/mos_"+FIELD+"/"+FIELD+"_HIcube"+CUBE+"_clean_smooth_image_mask.fits"
     threads:
-        10  # Same as what's coded into the template file.  No advantage of going higher because only applying existing mask.
+        8  # Same as what's coded into the template file.  No advantage of going higher because only applying existing mask.
     shell:
         "sofia "+SOFTWARE+"/aper_sf2/sofia_final_template.par input.data={input[0]} input.mask={input[1]}"
 
