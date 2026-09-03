@@ -55,7 +55,6 @@ def run(i):
     except RuntimeError:
         print("\tProblems CONVOLVEing data for channel {}.".format(chan[i]))
         os.system('cp -r map_{:02}_00_{:04} smooth_{:02}_00_{:04}'.format(b,chan[i],b,chan[i]))
-        return
 
     try:
         fits.op = 'xyout'
@@ -142,6 +141,7 @@ for b in beams:
 
                 new_smoothcube = pyfits.open(smooth_fits, mode='update')
                 new_smoothcube_data = new_smoothcube[0].data
+                
                 chan = new_smoothcube[1].data['CHAN']
                 bmaj = new_smoothcube[1].data['BMAJ']
                 bmin = new_smoothcube[1].data['BMIN']
@@ -182,11 +182,11 @@ for b in beams:
                     pool.terminate()
                 toc1 = time.time()
                 print("[SMOOTH_WA3] Time to actually do smoothing: {:0.4f} seconds".format(toc1 - tic1))
-
+		
                 # Write the cleaned data to file
                 for i in range(ncases):
                     new_smoothcube_data[chan[i],:,:] = smooth_out[i]
-
+                
                 # Updating the clean file with the new data
                 print(" - Updating the clean file")
                 new_smoothcube = pyfits.open(smooth_fits, mode='update')
