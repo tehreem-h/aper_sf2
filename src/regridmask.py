@@ -30,11 +30,12 @@ with fits.open(incube) as cube:
 beam = incube.split('_')[1][-2:]
 beam = incube.split('/')[-1].split('_')[1][-2:]
 postGridMask = preGridMask.replace('.fits', '{}_regrid.fits'.format(beam))
+field_dir = '/'.join(incube.split('/')[:-1])+'/'
 
 '''
 MAKE HDR FILE FOR REGRIDDING THE USER SUPPLIED MASK AND REPROJECT
 '''
-with open('tmp' + str(beam) + '.hdr', 'w') as file:
+with open(field_dir + 'tmp' + str(beam) + '.hdr', 'w') as file:
     file.write('SIMPLE  =   T\n')
     file.write('BITPIX  =   -64\n')
     file.write('NAXIS   =   2\n')
@@ -69,7 +70,7 @@ with fits.open('{}'.format(preGridMask)) as hdul:
         hdul.writeto('{}'.format(preGridMaskNew), overwrite=True)
         preGridMask = preGridMaskNew
 
-Run('mProjectCube {} {} tmp{}.hdr'.format(preGridMask, postGridMask, beam))
+Run('mProjectCube {} {} {}tmp{}.hdr'.format(preGridMask, postGridMask, field_dir, beam))
 
 if not os.path.exists('{}'.format(postGridMask)):
     raise IOError(
@@ -120,4 +121,4 @@ try:
 except:
     pass
 os.remove(postGridMask.replace('_regrid.fits', '_regrid_area.fits'))
-os.remove('tmp' + str(beam) + '.hdr')
+os.remove(field_dir + 'tmp' + str(beam) + '.hdr')
